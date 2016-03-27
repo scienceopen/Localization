@@ -33,6 +33,13 @@ def sum_error(x, c, r):
 
 
 def lse(cA):
+    '''Returns a geometry.point() with estimated position.
+
+    Raises ValueError if too few observations.
+    '''
+    if len(cA) <= 1:
+        raise ValueError('%s observations is too few' % len(cA))
+
     l = len(cA)
     r = [w.r for w in cA]
     c = [w.c for w in cA]
