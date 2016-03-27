@@ -19,7 +19,7 @@ from setuptools import setup
 
 setup(
     name = 'Localization',
-    version = '0.1.4',
+    version = '0.2.0',
 
     author = 'Elvio Toccalino',
     author_email = 'me@etoccalino.com',
