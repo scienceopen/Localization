@@ -26,6 +26,7 @@ setup(
 
     packages = ['localization'],
     install_requires = ['numpy', 'scipy', 'shapely'],
+    test_suite = 'tests',
 
     url = 'https://github.com/kamalshadi/Localization',
     license = 'LICENSE.txt',
