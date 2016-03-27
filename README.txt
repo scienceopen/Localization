@@ -1,62 +1,70 @@
-﻿===========
+﻿============
 Localization
-===========
+============
 
 Localization package provides tools for multilateration and triangulation
-in '2D','3D' and on earth surface. 
-The current model of the earth, supported by the package, is called 'Earth1'. 
-Earth1 models the earth as an ideal sphere having radius of 6378.1 kilometers. Typical usage of the package is:
-
+in '2D','3D' and on earth surface.
+The current model of the earth, supported by the package, is called 'Earth1'.
+Earth1 models the earth as an ideal sphere having radius of 6378.1 kilometers. Typical usage of the package is::
 
     import localization as lx
 
-To initilaize new localization Project use:
+To initilaize new localization Project use::
 
-P=lx.Project(mode=<mode>,solver=<solver>)
+    project = lx.Project(mode=<mode>,solver=<solver>)
 
 Currently three modes are supported:
-1-2D
-2-3D
-3-Earth1
+
+  * "2D"
+  * "3D"
+  * "Earth1"
 
 Also three solvers can be utilized:
-1-LSE for least square error
-2-LSE_GC for least square error with geometric constraints. Geometric constraints force the solutions to be in the intersection areas of all multilateration circles.
-3- CCA for centroid method, i.e., the solution will be the centroid of the intersection area. If no common intersection area exist, the area with maximum overlap is used.
 
-To add anchors to the project use:
+  * "LSE" for least square error
+  * "LSE_GC" for least square error with geometric constraints. Geometric constraints force the solutions to be in the intersection areas of all multilateration circles.
+  * "CCA" for centroid method, i.e., the solution will be the centroid of the intersection area. If no common intersection area exist, the area with maximum overlap is used.
 
-P.add_anchor(<name>,<loc>)
+To add anchors to the project use::
 
-where name denote user provided label of the anchor and <loc> is the location of the anchor provided in tuple, e.g., (120,60).
+    project.add_anchor("anchor name", loc)
 
-To add target use:
+where name denote user provided label of the anchor and **loc** is the location of the anchor provided in tuple, e.g., (120,60).
 
-t,label=P.add_target()
+To add target use::
 
-t is the target object and label is the package provided label for the target.
+    target, label = project.add_target()
 
-Distance measurements must be added to target object like:
+**target** is the target object and **label** is the package provided label for the target.
 
-t.add_measure(<anchore_lable>,<measured_distance>)
+Distance measurements must be added to target object like::
 
-Finally running P.solve() will locate all targets. You can access the estimated location of the target t by t.loc.
-t.loc is a point object. Point object B has "x","y","z" coordinates available by B.x, B.y, B.z respectively.
+    target.add_measure("anchor name", measured_distance)
 
-Install the package by:
-pip install localization
+Finally running ``project.solve()`` will locate all targets. You can access the estimated location of the target by ``target.loc``.
+``target.loc`` is a point object. Point object B has "x","y","z" coordinates available by B.x, B.y, B.z respectively::
 
-contact: kamal.shadi85@gmail.com
+    print("target found at:", round(target.loc.x, 2), round(target.loc.y, 2))
 
 
-An Example
-=========
+Installation
+------------
 
-Basic
--------------
+*Localization* depends on *numpy*, *scipy* (which requires *lapack* with dev headers, a fortran compiler (e.g. *gfortran*)), *shapely* (which requires *libgeos* with its dev headers).
 
-To be completed:
+Provided you have already installed:
 
-1. README
+* the lapack package with header files
+* the libgeos with its header files
+* a fortran compiler
 
-2. DOC
+then to install Localization use::
+
+  pip install .
+
+
+Contact
+-------
+
+Original author: kamal.shadi85@gmail.com
+Revision author: me@etoccalino.com

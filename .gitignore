@@ -1,3 +1,7 @@
 build/
 *~
 *.pyc
+README.html
+dist/
+Localization.egg-info/
+.python-version

@@ -15,20 +15,21 @@
 # You should have received a copy of the GNU General Public License along with
 # Localization.  If not, see <http://www.gnu.org/licenses/>.
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(
-    name='Localization',
-    version='0.1.4',
+    name = 'Localization',
+    version = '0.1.4',
 
-    author='Elvio Toccalino',
-    author_email='me@etoccalino.com',
+    author = 'Elvio Toccalino',
+    author_email = 'me@etoccalino.com',
 
-    packages=['localization', 'localization.test'],
+    packages = ['localization'],
+    install_requires = ['numpy', 'scipy', 'shapely'],
 
-    url='https://github.com/kamalshadi/Localization',
-    license='LICENSE.txt',
+    url = 'https://github.com/kamalshadi/Localization',
+    license = 'LICENSE.txt',
 
-    description='Multilateration and triangulation.',
-    long_description=open('README.txt').read(),
+    description = 'Multilateration and triangulation.',
+    long_description = open('README.txt').read(),
 )
