@@ -17,19 +17,16 @@
 
 import numpy as num
 import geometry as gx
+from math import sqrt
 from scipy.optimize import minimize
 
 
-def norm(x, y, mode='2D'):
-    return ((x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 2) ** .5
+def norm(x, y):
+    return sqrt((x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 2)
 
 
 def sum_error(x, c, r):
-    l = len(c)
-    e = 0
-    for i in range(l):
-        e = e + (norm(x, c[i].std()) - r[i]) ** 2
-    return e
+    return sum((norm(x, c[i].std()) - r[i]) ** 2 for i in range(len(c)))
 
 
 def lse(cA):
@@ -45,14 +42,13 @@ def lse(cA):
     c = [w.c for w in cA]
     S = sum(r)
     W = [(S - w) / ((l - 1) * S) for w in r]
-    p0 = gx.point(0, 0, 0)
 
+    p0 = gx.point(0, 0, 0)
     for i in range(l):
         p0 = p0 + W[i] * c[i]
 
     x0 = num.array([p0.x, p0.y])
 
     res = minimize(sum_error, x0, args=(c, r), method='BFGS')
-    ans = res.x
 
-    return gx.point(ans)
+    return gx.point(res.x)

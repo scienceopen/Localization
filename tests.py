@@ -54,8 +54,8 @@ class LocateFourAnchors(unittest.TestCase):
     def check_result(self, x, y, tolerance=0.1):
         xx = abs(self.TARGET[0] - x)
         yy = abs(self.TARGET[1] - y)
-        self.assertTrue(xx < tolerance * self.TARGET[0])
-        self.assertTrue(yy < tolerance * self.TARGET[1])
+        self.assertLess(xx, tolerance * self.TARGET[0])
+        self.assertLess(yy, tolerance * self.TARGET[1])
 
     def check_bad_result(self, x, y):
         xx = abs(self.TARGET[0] - x)
@@ -67,7 +67,7 @@ class LocateFourAnchors(unittest.TestCase):
 
     def test_solve_full(self):
         x, y = self.solve(observations=self.OBSERVATIONS)
-        self.check_result(x, y)
+        self.check_result(x, y, tolerance=0.07)
 
     def test_solve_partial(self):
         observations = [self.OBSERVATIONS[chosen] for chosen in [0, 3, 6, 8]]
