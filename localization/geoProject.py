@@ -17,6 +17,7 @@
 
 import geometry as gm
 import methods as mx
+import logging
 
 
 class Anchor:
@@ -53,6 +54,7 @@ class Project:
         self.AnchorDic = {}
         self.TargetDic = {}
         self.nt = 0
+        self.log = logging.getLogger(__file__)
 
     def set_mode(self, mode):
         self.mode = mode
@@ -63,7 +65,7 @@ class Project:
     def add_anchor(self, ID, loc):
         try:
             self.AnchorDic[ID]
-            print str(ID)+':Anchor with same ID already exists'
+            self.log.error(str(ID)+':Anchor with same ID already exists')
             return
         except KeyError:
             a = Anchor(ID, gm.point(loc))
@@ -73,7 +75,7 @@ class Project:
     def add_target(self, ID=None):
         try:
             self.TargetDic[ID]
-            print 'Target with same ID already exists'
+            self.log.error('Target with same ID already exists')
             return
         except:
             self.nt = self.nt+1
@@ -101,9 +103,10 @@ class Project:
                     tar.loc = mx.lse(cA, mode=self.mode, cons=True)
                 except mx.cornerCases as cc:
                     if cc.tag == 'Disjoint':
-                        print tar.ID+' could not be localized by LSE_GC'
+                        self.log.warning(tar.ID +
+                                         ' could not be localized by LSE_GC')
                     else:
-                        print 'Unknown Error in localizing '+tar.ID
+                        self.log.error('Unknown Error in localizing '+tar.ID)
             elif self.solver == 'CCA':
                 if not self.detail:
                     tar.loc, n = mx.CCA(cA, mode=self.mode, detail=False)

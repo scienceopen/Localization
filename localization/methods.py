@@ -19,6 +19,10 @@ import numpy as num
 import geometry as gx
 from scipy.optimize import minimize, fmin_cobyla
 from find_centroid import maxPol
+import logging
+
+
+log = logging.getLogger(__file__)
 
 
 class cornerCases(Exception):
@@ -81,7 +85,7 @@ def lse(cA, mode='2D', cons=True):
     else:
         fg1 = 0
     if cons:
-        print 'GC-LSE geolocating...'
+        log.debug('GC-LSE geolocating...')
         if not is_disjoint(cA, fg=fg1):
             cL = []
             for q in range(l):
@@ -94,7 +98,7 @@ def lse(cA, mode='2D', cons=True):
         else:
             raise cornerCases('Disjoint')
     else:
-        print 'LSE Geolocating...'
+        log.debug('LSE Geolocating...')
         res = minimize(sum_error, x0, args=(c, r, mode), method='BFGS')
         ans = res.x
     return gx.point(ans)
@@ -106,8 +110,8 @@ def CCA(cA, mode='2D', detail=False):
     elif mode == 'Earth1':
         from shapely_earth1 import polygonize
     else:
-        print """The combination of centroid method and
-        your selected mode does not exist"""
+        log.error('The combination of centroid method and'
+                  'your selected mode does not exist')
         raise cornerCases('InputError')
     P = polygonize([xx.c for xx in cA], [xx.r for xx in cA])
     area, n = maxPol(P)

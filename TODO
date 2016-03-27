@@ -1,6 +1,4 @@
-* use logging instead of print statements
 * isolate 2D functionality
 * isolate LSE functionality
 * document other (non LSE) solver strategies
-* implement tests, starting with LSE
 * remove use of GLOBALS in localization/geometry.py !

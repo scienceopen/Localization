@@ -20,8 +20,12 @@ The python functions in this files return the area of maximim intersection
 for a list of shapely polygons
 """
 
+import logging
 import numpy as num
 from itertools import combinations
+
+
+log = logging.getLogger(__file__)
 
 
 class geoError(Exception):
@@ -79,7 +83,7 @@ def checkCan(P, can):
                 try:
                     C = C.intersection(P[j])
                 except:
-                    print '(!)Warning: in checkCan'
+                    log.warning('in checkCan, intersection()')
             else:
                 fg = True
                 break

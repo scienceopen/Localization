@@ -784,7 +784,6 @@ class Ray:
                 a1 = self.c.angle(p[0])
                 a2 = self.c.angle(p[1])
                 if abs(a1 - a2) < res:
-                    print 'hey'
                     if p[0].dist(self.c) > p[1].dist(self.c):
                         return [p[1], p[0]]
                     else:
@@ -915,8 +914,7 @@ class ndisc:
                 pc = self.intersect(ray)
                 pll.append(pc)
             except geoError:
-                print 'Unknown Error in ray - ndisc intersection'
-                raise geoError('Unknown')
+                raise geoError('Unknown Error in ray - ndisc intersection')
         pll[-1] = pll[0]
         return pll
 
