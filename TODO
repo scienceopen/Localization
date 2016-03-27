@@ -3,3 +3,4 @@
 * document other (non LSE) solver strategies
 * implement tests, starting with LSE
 * port code to be PEP8 compliant
+* remove use of GLOBALS in localization/geometry.py !
