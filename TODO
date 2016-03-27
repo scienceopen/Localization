@@ -1,0 +1,5 @@
+* use logging instead of print statements
+* isolate LSE functionality
+* document other (non LSE) solver strategies
+* implement tests, starting with LSE
+* port code to be PEP8 compliant
