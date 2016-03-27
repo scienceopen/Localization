@@ -31,8 +31,8 @@ class LocateFourAnchors(unittest.TestCase):
             ('dev-2', 'M1', 1 * 1.02, 0),
         )
 
-    def solve(self, algorithm):
-        P = localization.Project(mode='2D', solver=algorithm)
+    def solve(self):
+        P = localization.Project()
 
         # Add all the "anchors"
         for device, position in self.POSITIONS.items():
@@ -55,14 +55,6 @@ class LocateFourAnchors(unittest.TestCase):
         self.assertTrue(xx < tolerance * self.TARGET[0])
         self.assertTrue(yy < tolerance * self.TARGET[1])
 
-    def test_LSE(self):
-        x, y = self.solve('LSE')
-        self.check_result(x, y)
-
-    def test_CCA(self):
-        x, y = self.solve('CCA')
-        self.check_result(x, y)
-
-    def test_LSE_GC(self):
-        x, y = self.solve('LSE_GC')
+    def test_solve(self):
+        x, y = self.solve()
         self.check_result(x, y)

@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License along with
 # Localization.  If not, see <http://www.gnu.org/licenses/>.
 
-import geometry as gm
-import methods as mx
+import geometry
+import methods
 import logging
 
 
@@ -47,20 +47,12 @@ class Target:
 
 class Project:
 
-    def __init__(self, mode='2D', solver='LSE', detail=False):
-        self.mode = mode
-        self.solver = solver
+    def __init__(self, detail=False):
         self.detail = detail
         self.AnchorDic = {}
         self.TargetDic = {}
         self.nt = 0
         self.log = logging.getLogger(__file__)
-
-    def set_mode(self, mode):
-        self.mode = mode
-
-    def set_solver(self, sol):
-        self.solver = sol
 
     def add_anchor(self, ID, loc):
         try:
@@ -68,7 +60,7 @@ class Project:
             self.log.error(str(ID)+':Anchor with same ID already exists')
             return
         except KeyError:
-            a = Anchor(ID, gm.point(loc))
+            a = Anchor(ID, geometry.point(loc))
             self.AnchorDic[ID] = a
         return a
 
@@ -95,22 +87,7 @@ class Project:
                 landmark = tup[0]
                 c = self.AnchorDic[landmark].loc
                 d = tup[1]
-                cA.append(gm.circle(c, d))
-            if self.solver == 'LSE':
-                tar.loc = mx.lse(cA, mode=self.mode, cons=False)
-            elif self.solver == 'LSE_GC':
-                try:
-                    tar.loc = mx.lse(cA, mode=self.mode, cons=True)
-                except mx.cornerCases as cc:
-                    if cc.tag == 'Disjoint':
-                        self.log.warning(tar.ID +
-                                         ' could not be localized by LSE_GC')
-                    else:
-                        self.log.error('Unknown Error in localizing '+tar.ID)
-            elif self.solver == 'CCA':
-                if not self.detail:
-                    tar.loc, n = mx.CCA(cA, mode=self.mode, detail=False)
-                    return n
-                else:
-                    tar.loc, n, P, iP = mx.CCA(cA, mode=self.mode, detail=True)
-                    return (n, P, iP)
+                cA.append(geometry.circle(c, d))
+
+            # Solve using LSE
+            tar.loc = methods.lse(cA)

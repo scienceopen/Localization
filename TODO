@@ -1,4 +1,1 @@
-* isolate 2D functionality
-* isolate LSE functionality
-* document other (non LSE) solver strategies
 * remove use of GLOBALS in localization/geometry.py !
