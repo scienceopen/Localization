@@ -1,1 +1,2 @@
 * remove use of GLOBALS in localization/geometry.py !
+* purge the horrible horrible implementation of geometry.py
