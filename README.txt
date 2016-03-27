@@ -31,7 +31,7 @@ Finally running ``project.solve()`` will locate all targets. You can access the 
 Installation
 ------------
 
-*Localization* depends on *numpy*, *scipy* (which requires *lapack* with dev headers, a fortran compiler (e.g. *gfortran*)), *shapely* (which requires *libgeos* with its dev headers).
+*Localization* depends on *numpy* and *scipy* (which requires *lapack* with dev headers, a fortran compiler (e.g. *gfortran*))
 
 Provided you have already installed:
 

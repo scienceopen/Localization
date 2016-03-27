@@ -19,13 +19,13 @@ from setuptools import setup
 
 setup(
     name = 'Localization',
-    version = '0.2.0',
+    version = '0.2.1',
 
     author = 'Elvio Toccalino',
     author_email = 'me@etoccalino.com',
 
     packages = ['localization'],
-    install_requires = ['numpy', 'scipy', 'shapely'],
+    install_requires = ['numpy', 'scipy'],
     test_suite = 'tests',
 
     url = 'https://github.com/kamalshadi/Localization',
