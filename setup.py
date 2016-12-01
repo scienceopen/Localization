@@ -14,8 +14,16 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # Localization.  If not, see <http://www.gnu.org/licenses/>.
-
+from __future__ import print_function
+from sys import stderr
+from subprocess import call
 from setuptools import setup
+
+try:
+    call(['conda','install','--file','requirements.txt'])
+except Exception:
+    print('install packages in requirements.txt',file=stderr)
+
 
 setup(
     name = 'Localization',
@@ -32,5 +40,5 @@ setup(
     license = 'LICENSE.txt',
 
     description = 'Multilateration and triangulation.',
-    long_description = open('README.txt').read(),
+    long_description = open('README.rst').read(),
 )
