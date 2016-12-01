@@ -37,17 +37,18 @@ def lse(cA,mode):
 
     Raises ValueError if too few observations.
     '''
-    if len(cA) <= 1:
-        raise ValueError('%s observations is too few' % len(cA))
+    Nobs = len(cA)
 
-    l = len(cA)
+    if mode=='2D' and Nobs<2 or mode=='3D' and Nobs<3:
+        raise ValueError('{} observations is too few for {}'.format(Nobs,mode))
+
     r = [w.r for w in cA]
     c = [w.c for w in cA]
     S = sum(r)
-    W = [(S - w) / ((l - 1) * S) for w in r]
+    W = [(S - w) / ((Nobs - 1) * S) for w in r]
 
     p0 = point(0, 0, 0)
-    for i in range(l):
+    for i in range(Nobs):
         p0 = p0 + W[i] * c[i]
 
     if mode=='2D' or mode=='Earth1':
