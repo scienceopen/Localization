@@ -2,10 +2,26 @@
 Localization
 ============
 
-Localization package provides tools for multilateration and triangulation in a 2D surface. Long distances are affected by the the a model the earth as an ideal sphere having radius of 6378.1 kilometers. Typical usage of the package is::
+::Original author:: kamal.shadi85@gmail.com
+::Revision author:: me@etoccalino.com   github.com/scienceopen
+
+Localization package provides tools for multilateration and triangulation in a 2D surface.
+Long distances are affected by the earth modeled as an ideal sphere having radius of 6378.1 kilometers.
+
+.. contents::
+
+
+Typical usage
+=============
+see `ExampleEllipsoid.py <ExampleEllipsoid.py>`_::
 
   import localization
-  project = localization.Project(mode=<mode>,solver=<solver>)
+  project = localization.Project(mode=<mode>)
+
+where <mode> is one of::
+
+    2D
+    3D
 
 To add anchors to the project use::
 
@@ -29,31 +45,15 @@ Finally running ``project.solve()`` will locate all targets. You can access the 
 
 
 Installation
-------------
+============
+::
 
-*Localization* depends on *numpy* and *scipy* (which requires *lapack* with dev headers, a fortran compiler (e.g. *gfortran*))
-
-Provided you have already installed:
-
-  * the lapack package with header files
-  * the libgeos with its header files
-  * a fortran compiler
-
-then to install Localization use::
-
-  pip install .
+    python setup.py develop
 
 
 Running the tests
------------------
+=================
 
 To run the (black box, and very brief) test suite, use::
 
-  python setup.py test
-
-
-Contact
--------
-
-* Original author: kamal.shadi85@gmail.com
-* Revision author: me@etoccalino.com
+  python tests.py

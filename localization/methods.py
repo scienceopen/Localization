@@ -16,20 +16,23 @@
 # Localization.  If not, see <http://www.gnu.org/licenses/>.
 
 from .geometry import point
-import numpy as num
+from numpy import array
 from math import sqrt
 from scipy.optimize import minimize
 
 
-def norm(x, y):
-    return sqrt((x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 2)
+def norm(x, y, mode):
+    if mode=='2D':
+        return sqrt((x[0] - y[0])**2 + (x[1] - y[1])**2)
+    elif mode=='3D':
+        return sqrt((x[0] - y[0])**2 + (x[1] - y[1])**2 + (x[2] - y[2])**2)
 
 
-def sum_error(x, c, r):
-    return sum((norm(x, c[i].std()) - r[i]) ** 2 for i in range(len(c)))
+def sum_error(x, c, r,mode):
+    return sum((norm(x, c[i].std(), mode) - r[i]) ** 2 for i in range(len(c)))
 
 
-def lse(cA):
+def lse(cA,mode):
     '''Returns a geometry.point() with estimated position.
 
     Raises ValueError if too few observations.
@@ -47,8 +50,11 @@ def lse(cA):
     for i in range(l):
         p0 = p0 + W[i] * c[i]
 
-    x0 = num.array([p0.x, p0.y])
+    if mode=='2D' or mode=='Earth1':
+        x0 = array([p0.x,p0.y])
+    elif mode=='3D':
+        x0 = array([p0.x,p0.y,p0.z])
 
-    res = minimize(sum_error, x0, args=(c, r), method='BFGS')
+    res = minimize(sum_error, x0, args=(c, r, mode), method='BFGS')
 
     return point(res.x)

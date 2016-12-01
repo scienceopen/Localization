@@ -19,7 +19,6 @@ from .geometry import point, circle
 from .methods import lse
 import logging
 
-
 class Anchor:
     def __init__(self, ID, loc):
         self.loc = loc
@@ -47,12 +46,13 @@ class Target:
 
 class Project:
 
-    def __init__(self, detail=False):
+    def __init__(self, mode, detail=False):
         self.detail = detail
         self.AnchorDic = {}
         self.TargetDic = {}
         self.nt = 0
         self.log = logging.getLogger(__file__)
+        self.mode = mode
 
     def add_anchor(self, ID, loc):
         try:
@@ -90,4 +90,4 @@ class Project:
                 cA.append(circle(c, d))
 
             # Solve using LSE
-            tar.loc = lse(cA)
+            tar.loc = lse(cA, self.mode)
