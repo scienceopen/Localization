@@ -1,6 +1,7 @@
 import unittest
 import localization
-import math
+from math import sqrt
+from numpy.testing import run_module_suite
 
 
 class LocateFourAnchors(unittest.TestCase):
@@ -16,16 +17,16 @@ class LocateFourAnchors(unittest.TestCase):
         'dev-3': (1, 3),
     }
     OBSERVATIONS = (
-        ('dev-3', 'M1', math.sqrt(2) * 1.10, 0),
-        ('dev-3', 'M1', math.sqrt(2) * 1.01, 0),
-        ('dev-3', 'M1', math.sqrt(2) * 0.98, 0),
+        ('dev-3', 'M1', sqrt(2) * 1.10, 0),
+        ('dev-3', 'M1', sqrt(2) * 1.01, 0),
+        ('dev-3', 'M1', sqrt(2) * 0.98, 0),
 
-        ('dev-3', 'M1', math.sqrt(2) * 0.92, 0),
-        ('dev-3', 'M1', math.sqrt(2) * 1.02, 0),
-        ('dev-3', 'M1', math.sqrt(2) * 1.12, 0),
+        ('dev-3', 'M1', sqrt(2) * 0.92, 0),
+        ('dev-3', 'M1', sqrt(2) * 1.02, 0),
+        ('dev-3', 'M1', sqrt(2) * 1.12, 0),
 
-        ('dev-0', 'M1', 2 * math.sqrt(2) * 1.05, 0),
-        ('dev-0', 'M1', 2 * math.sqrt(2) * 1.12, 0),
+        ('dev-0', 'M1', 2 * sqrt(2) * 1.05, 0),
+        ('dev-0', 'M1', 2 * sqrt(2) * 1.12, 0),
 
         ('dev-2', 'M1', 1 * 0.95, 0),
         ('dev-2', 'M1', 1 * 0.99, 0),
@@ -87,3 +88,6 @@ class LocateFourAnchors(unittest.TestCase):
     def test_solve_single_observation_raises_ValueError(self):
         observations = [self.OBSERVATIONS[chosen] for chosen in [8]]
         self.assertRaises(ValueError, self.solve, observations=observations)
+
+if __name__ == '__main__':
+    run_module_suite()

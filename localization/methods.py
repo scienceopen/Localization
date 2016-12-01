@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License along with
 # Localization.  If not, see <http://www.gnu.org/licenses/>.
 
+from .geometry import point
 import numpy as num
-import geometry as gx
 from math import sqrt
 from scipy.optimize import minimize
 
@@ -43,7 +43,7 @@ def lse(cA):
     S = sum(r)
     W = [(S - w) / ((l - 1) * S) for w in r]
 
-    p0 = gx.point(0, 0, 0)
+    p0 = point(0, 0, 0)
     for i in range(l):
         p0 = p0 + W[i] * c[i]
 
@@ -51,4 +51,4 @@ def lse(cA):
 
     res = minimize(sum_error, x0, args=(c, r), method='BFGS')
 
-    return gx.point(res.x)
+    return point(res.x)
