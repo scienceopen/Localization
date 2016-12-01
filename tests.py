@@ -35,7 +35,7 @@ class LocateFourAnchors(unittest.TestCase):
     )
 
     def solve(self, observations=OBSERVATIONS):
-        P = localization.Project()
+        P = localization.Project(mode='2D')
 
         # Add all the "anchors"
         for device, position in self.POSITIONS.items():
