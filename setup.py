@@ -25,7 +25,7 @@ setup(
     author_email = 'me@etoccalino.com',
 
     packages = ['localization'],
-    install_requires = ['numpy', 'scipy'],
+    install_requires = [],
     test_suite = 'tests',
 
     url = 'https://github.com/kamalshadi/Localization',
